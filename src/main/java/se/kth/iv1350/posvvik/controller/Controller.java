@@ -79,6 +79,7 @@ public class Controller {
      */
     public void pay(double amountPaid){
         payment = new Payment(amountPaid,sale);
+        paymentAddObservers();
         Receipt receipt = new Receipt(sale,payment);
         printer.print(receipt);
     }
@@ -86,7 +87,6 @@ public class Controller {
      * Called after all the items are registered to update systems.
      */
     public void finishSale(){
-        payment.notifyObservers();
         cashReg.updateCashRegister(payment);
         invSys.removeItems(sale);
         accSys.addSale(sale);
@@ -100,6 +100,6 @@ public class Controller {
         
     }
     public void paymentAddObservers(){
-        payment.addRentalObservers(revenueObservers);
+        payment.addRevenueObservers(revenueObservers);
     }
 }

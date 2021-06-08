@@ -20,7 +20,8 @@ public class View {
      */
     public View(Controller contr){
         this.contr = contr;
-        
+        contr.addRevenueObserver(new TotalRevenueView());
+        contr.addRevenueObserver(new TotalRevenueFileOutput());
     }
     /**
      * A hardcoded execution of a sample sale
@@ -39,9 +40,7 @@ public class View {
             this.contr.scanItem(itemIdF);
             this.contr.scanItem(itemIdC);
             contr.pay(100.00);
-            contr.addRevenueObserver(new TotalRevenueView());
-            contr.addRevenueObserver(new TotalRevenueFileOutput());
-            contr.paymentAddObservers();
+            
             contr.finishSale();
         } catch (OperationFailedException e) {
             errorHandler.showErrorMessage("Operation failed!");

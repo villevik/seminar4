@@ -23,7 +23,6 @@ public class Payment {
         this.amountPaid = amountPaid;
         this.sale = sale;
         this.revenue = sale.getTotalPrice();
-        
     }
     
     /**
@@ -49,18 +48,20 @@ public class Payment {
         return amountPaid - revenue;
     }
     /**
-     * 
+     * Adds all the observers from the list observers. Also notifies them,
+     * this might not be the best spot to do so but in this case there's no call
+     * to Payment after this one. Bad encapsulation.
      * @param observers 
      */
-    public void addRentalObservers(List<RevenueObserver> observers){
+    public void addRevenueObservers(List<RevenueObserver> observers){
         revenueObservers.addAll(observers);
-        //notifyObservers();
+        notifyObservers();
         
     }
     /**
-     * 
+     * Notifies the observers there has been a payment done.
      */
-    public void notifyObservers(){
+    private void notifyObservers(){
         for(RevenueObserver obs : revenueObservers){
             obs.newTotalRevenue(amountPaid);
         }
